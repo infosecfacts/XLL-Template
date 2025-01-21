@@ -1,23 +1,28 @@
-#include <stdio.h>
-#include <windows.h>
+#include <Windows.h>
 
-__declspec(dllexport) LONG CALLBACK CPlApplet(HWND hwndCpl, UINT msg, LPARAM lParam1, LPARAM lParam2) {
-    //Run_my_code();
-    MessageBoxA(NULL, "Hello from CPLApplet \o/\n", "Info", MB_OK | MB_ICONQUESTION);
-    return 1;
+BOOL APIENTRY DllMain(HMODULE hModule,
+	DWORD  ul_reason_for_call,
+	LPVOID lpReserved
+)
+{
+	switch (ul_reason_for_call)
+	{
+	case DLL_PROCESS_ATTACH:
+	case DLL_THREAD_ATTACH:
+	case DLL_THREAD_DETACH:
+	case DLL_PROCESS_DETACH:
+		break;
+	}
+	return TRUE;
 }
 
-BOOL APIENTRY DllMain(HMODULE hModule, DWORD ul_reason_for_call, LPVOID lpReserved) {
-    switch (ul_reason_for_call) {
-    case DLL_PROCESS_ATTACH:
-        break;
-    case DLL_THREAD_ATTACH:
-        break;
-    case DLL_THREAD_DETACH:
-        break;
-    case DLL_PROCESS_DETACH:
-        break;
-    }
+__declspec(dllexport) int WINAPI xlAutoOpen(void){
+//Run_your_code
+	MessageBoxA(NULL, "Hello from xlAutoOpen() \\o/", "Info", MB_OK | MB_ICONASTERISK);
+    return 0;
+}
 
-    return TRUE;
+__declspec(dllexport) int WINAPI xlAutoClose(void)
+{
+    return 1; 
 }
